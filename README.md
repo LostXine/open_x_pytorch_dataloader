@@ -2,7 +2,7 @@
 
 An unofficial pytorch dataloader for [Open-X Embodiment Datasets](https://robotics-transformer-x.github.io/).
 
-This README will guide you integrat the Open-X Embodiment Datasets into your PyTorch project. For a native TensorFlow experience, please check [the official repo](https://github.com/google-deepmind/open_x_embodiment).
+This README will guide you to integrate the Open-X Embodiment Datasets into your PyTorch project. For a native TensorFlow experience, please check [the official repo](https://github.com/google-deepmind/open_x_embodiment).
 
 ## Download the datasets
 
@@ -36,7 +36,7 @@ This section was last updated on 1/19/2024.
     ```
 
     * `tf_dir`: full directory containing the downloaded dataset, including the version number.
-    * `fetch_pattern`: regular expression utilized to specify the data you wish to retrieve. Defaults to `r'steps*'`. The example above only retrieve visual observations.
+    * `fetch_pattern`: regular expression utilized to specify the data you wish to retrieve. Defaults to `r'steps*'`. The example above only retrieves visual observations.
     * `sample_length`: number of transitions per sample. If set to `2`, the returned sample will be $[s_1, s_2]$.
     
     The last several lines of the output of the code above:
@@ -71,15 +71,13 @@ This section was last updated on 1/19/2024.
     - steps/reward
     ```
 
-    `__getitem__()` returns a dictionary where the keys correspond to `fetch_pattern`. The associated value for each key will be either a tensor of size `(sample_length, *original feature shape[^1])` or a list with `sample_length` elements. 
-
-    [^1]: When the feature type is image, the tensor will have a shape of `(sample_length, C, H, W)` instead.
-
+    `__getitem__()` returns a dictionary where the keys correspond to `fetch_pattern`. The associated value for each key will be either a tensor of size `(sample_length, *original feature shape)`[^1] or a list with `sample_length` elements. 
 
 3. If the machine does not have enough RAM: I'm still working on it, stay tuned!
-
 
 ## Acknowledgment
 
 I really appreciate the substantial open-sourcing effort contributed by the creators of this extensive dataset.
 Thank [Jinghuan Shang](https://elicassion.github.io/) for valuable discussions.
+
+[^1]: When the feature is an image, the tensor will have a shape of `(sample_length, C, H, W)` instead.
