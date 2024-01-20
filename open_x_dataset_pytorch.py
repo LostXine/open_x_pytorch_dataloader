@@ -88,7 +88,7 @@ class OpenXDataset(Dataset):
             episode_length = episode['steps/is_first'].shape[0]
             samples_per_episode = episode_length - sample_length + 1
             episode_start += samples_per_episode
-            self.episode_idx.extend([(i, j) for j in range(episode_start)])
+            self.episode_idx.extend([(i, j) for j in range(samples_per_episode)])
 
         assert len(self.episodes), 'Fail to load any episodes'
         self.episode_keys = list(self.episodes[0].keys())
@@ -131,6 +131,11 @@ if __name__ == '__main__':
         sample_length=8,
     )
     print(d)
-    for k, v in d[0].items():
-        print(k, v.shape if isinstance(v, torch.Tensor) else len(v))
+    from torch.utils.data import DataLoader
+    from tqdm import tqdm
+    dl = DataLoader(d, batch_size=12, shuffle=True)
+    for batch in tqdm(dl):
+        for k, v in batch.items():
+            print(k, v.shape if isinstance(v, torch.Tensor) else len(v))
+        break
     
