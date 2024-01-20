@@ -24,7 +24,7 @@ This section was last updated on 1/19/2024.
     ```
     pip3 install -r requirements.txt
     ```
-2. If your machine has enough RAM to hold the whole dataset, you can init the dataset with `class OpenXDataset` in `open_x_dataset_pytorch.py`. A quick example:
+2. If your machine has enough RAM to hold the whole dataset, you can init the dataset with `class OpenXDataset(Dataset)` in `open_x_dataset_pytorch.py`. A quick example:
 
     ```
     d = OpenXDataset(
@@ -36,7 +36,7 @@ This section was last updated on 1/19/2024.
     ```
 
     * `tf_dir`: full directory containing the downloaded dataset, including the version number.
-    * `fetch_pattern`: regular expression utilized to specify the data you wish to retrieve. Defaults to r'steps*'. The example above only retrieve visual observations.
+    * `fetch_pattern`: regular expression utilized to specify the data you wish to retrieve. Defaults to `r'steps*'`. The example above only retrieve visual observations.
     * `sample_length`: number of transitions per sample. If set to `2`, the returned sample will be $[s_1, s_2]$.
     
     The last several lines of the output of the code above:
@@ -72,6 +72,7 @@ This section was last updated on 1/19/2024.
     ```
 
     `__getitem__()` returns a dictionary where the keys correspond to `fetch_pattern`. The associated value for each key will be either a tensor of size `(sample_length, *original feature shape[^1])` or a list with `sample_length` elements. 
+
     [^1]: When the feature type is image, the tensor will have a shape of `(sample_length, C, H, W)` instead.
 
 
