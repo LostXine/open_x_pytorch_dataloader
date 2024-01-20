@@ -75,6 +75,10 @@ This section was last updated on 1/19/2024.
 
 3. If the machine does not have enough RAM: I'm still working on it, stay tuned!
 
+## TODO
+1. Use `IterableDataset` to save RAM
+2. Filter out the invalid episodes according to [the dataset format](https://github.com/google-research/rlds?tab=readme-ov-file#dataset-format)
+
 ## Acknowledgment
 
 I really appreciate the substantial open-sourcing effort contributed by the creators of this extensive dataset.
