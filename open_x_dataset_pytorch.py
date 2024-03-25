@@ -76,7 +76,7 @@ class OpenXDataset(Dataset):
         # container for all the data
         self.episodes: list[dict] = []
         # sample index -> (index of the episode, index within the episode)
-        self.episode_idx: list[tuple(int, int)] = [] 
+        self.episode_idx: list[tuple[int, int]] = [] 
         
         episode_start = 0
         for i, episode in enumerate(tfrecord_loader_dp):

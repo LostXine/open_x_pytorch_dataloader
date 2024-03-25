@@ -7,6 +7,7 @@ This README will guide you to integrate the Open-X Embodiment Datasets into your
 ## Download the datasets
 
 1. Check available datasets and their corresponding metadata in [the dataset spreadsheet](https://docs.google.com/spreadsheets/d/1rPBD77tk60AEIGZrGSODwyyzs5FgCU9Uz3h-3_t2A9g/edit#gid=0)
+* **Warning** The images in `utokyo_saytap_converted_externally_to_rlds` seem to be corrupted.
 2. Set your preferred download destination `download_dst` in [generate_download_script.py](generate_download_script.py) and confirm the datasets you want to download. By default, the Python script will create a shell script that downloads all 53 datasets, amounting to a total size of approximately 4.5TB.
 3. Follow [this guide](https://cloud.google.com/storage/docs/gsutil_install#linux) to setup `gsutil`
 4. Generate the shell script and start to download:
