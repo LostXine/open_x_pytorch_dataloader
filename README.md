@@ -74,11 +74,18 @@ This section was last updated on 1/19/2024.
 
     `__getitem__()` returns a dictionary where the keys correspond to `fetch_pattern`. The associated value for each key will be either a tensor of size `(sample_length, *original feature shape)`[^1] or a list with `sample_length` elements. 
 
-3. If the machine does not have enough RAM: I'm still working on it, stay tuned!
+3. If the machine does not have enough RAM: use `class IterableOpenXDataset(IterableDataset)` in `open_x_dataset_pytorch.py` instead. It takes the same input parameters as the one above, though it does not maintain the total number of samples.
+    ```
+    d = IterableOpenXDataset(
+        tf_dir='datasets/asu_table_top_converted_externally_to_rlds/0.1.0/',
+        fetch_pattern=r'.*image.*',
+        sample_length=8,
+    )
+    print(d)
+    ```
 
 ## TODO
-1. Use `IterableDataset` to save RAM
-2. Filter out the invalid episodes according to [the dataset format](https://github.com/google-research/rlds?tab=readme-ov-file#dataset-format)
+1. Filter out the invalid episodes according to [the dataset format](https://github.com/google-research/rlds?tab=readme-ov-file#dataset-format)
 
 ## Acknowledgment
 
