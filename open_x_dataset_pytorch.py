@@ -53,12 +53,15 @@ def read_from_tf(tf_dir: str):
     return b.info, tfrecord_loader_dp
 
 
-def prepare_output_dict(transition_idx: int, episode: dict, sample_length: int, fetch_pattern: str):
-    return {
+def prepare_output_dict(transition_idx: int, episode_idx: int, episode: dict, sample_length: int, fetch_pattern: str):
+    res = {
         key: value[transition_idx: transition_idx + sample_length]
         for key, value in episode.items()
         if re.search(fetch_pattern, key)
     }
+    res['transition_idx'] = transition_idx
+    res['episode_idx'] = episode_idx
+    return res
 
 
 # Caution: this class will load the whole dataset to your RAM!
@@ -132,6 +135,7 @@ class OpenXDataset(Dataset):
         episode_idx, transition_idx = self.episode_idx[index]
         return prepare_output_dict(
             transition_idx,
+            episode_idx,
             self.episodes[episode_idx],
             self.sample_length,
             self.fetch_pattern
@@ -171,7 +175,7 @@ class IterableOpenXDataset(IterableDataset):
             worker_id = worker_info.id
             
         example_id = 0
-        for episode in self.tfrecord_loader_dp:
+        for episode_idx, episode in enumerate(self.tfrecord_loader_dp):
             # TODO: filter out invalid episodes using metadata
             converted_episode = parse_episode_using_meta(episode, self.meta)
             # count the total number of samples we can extract from an episode
@@ -181,6 +185,7 @@ class IterableOpenXDataset(IterableDataset):
                 if example_id % num_workers == worker_id:
                     yield prepare_output_dict(
                         transition_idx,
+                        episode_idx,
                         converted_episode,
                         self.sample_length,
                         self.fetch_pattern
