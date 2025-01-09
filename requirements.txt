@@ -1,4 +1,4 @@
 tensorflow_datasets
 pillow
 torch
-torchdata
+torchdata==0.9.0
